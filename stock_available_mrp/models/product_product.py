@@ -66,7 +66,7 @@ class ProductProduct(models.Model):
             for packs in product_pack:
                 if len(packs.pack_line_ids):
                     res[packs.id]['potential_qty'] = min([x.product_id.potential_qty / x.quantity for x in packs.pack_line_ids])
-                    res[packs.id]['immediately_usable_qty'] += res[packs.id]['potential_qty']
+                    res[packs.id]['immediately_usable_qty'] += min([x.product_id.immediately_usable_qty / x.quantity for x in packs.pack_line_ids])
                 else:
                     res[packs.id]['potential_qty'] = 0.0
                     res[packs.id]['immediately_usable_qty'] = 0.0
